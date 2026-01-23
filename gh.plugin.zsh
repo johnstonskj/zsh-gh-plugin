@@ -1,27 +1,17 @@
 # -*- mode: sh; eval: (sh-set-shell "zsh") -*-
 #
 # @name gh
-# @brief Zsh plugin to do something...
+# @brief Zsh plugin to update completions for 'gh' command.
 # @repository https://github.com/johnstonskj/zsh-gh-plugin
-# @homepage **include if different from repository URL**
-# @version **use semantic versioning, e.g. 0.1.0, or remove**
-# @license **use license expressions, e.g., MIT AND Apache-2.0, or remove**
-# @copyright **copyright notice in lieu of license, e.g., ©️ YEAR FULL_NAME <EMAIL>, or remove**
+# @version 0.1.0,
+# @license MIT AND Apache-2.0
 #
-# @description
-#
-# Long description TBD.
 #
 # ### State Variables
 #
 # * **PLUGIN**: Plugin-defined global associative array with the following keys:
 #   * **_NAME**: The name of this plugin.
 #   * **_PATH**: The complete file path to the plugin's file.
-#   * **_CONTEXT**: The plugin's state context.
-#
-# ### Public Variables
-#
-# * **GH_EXAMPLE**: if set it does something magical.
 #
 
 ############################################################################
@@ -32,7 +22,6 @@
 typeset -A PLUGIN
 PLUGIN[_PATH]="$(@zplugins_normalize_zero "$0")"
 PLUGIN[_NAME]="${${PLUGIN[_PATH]:t}%%.*}"
-PLUGIN[_CONTEXT]="$(@zplugins_plugin_context ${PLUGIN[_NAME]})"
 
 ############################################################################
 # @section Lifecycle
@@ -40,9 +29,7 @@ PLUGIN[_CONTEXT]="$(@zplugins_plugin_context ${PLUGIN[_NAME]})"
 #
 
 #
-# @description
-#
-# TBD.
+# @description Generate a completion function for the command 'gh'.
 #
 # @noargs
 #
