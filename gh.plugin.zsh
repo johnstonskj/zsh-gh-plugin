@@ -6,22 +6,6 @@
 # @version 0.1.0,
 # @license MIT AND Apache-2.0
 #
-#
-# ### State Variables
-#
-# * **PLUGIN**: Plugin-defined global associative array with the following keys:
-#   * **_NAME**: The name of this plugin.
-#   * **_PATH**: The complete file path to the plugin's file.
-#
-
-############################################################################
-# @section Setup
-# @description Standard path and variable setup.
-#
-
-typeset -A PLUGIN
-PLUGIN[_PATH]="$(@zplugins_normalize_zero "$0")"
-PLUGIN[_NAME]="${${PLUGIN[_PATH]:t}%%.*}"
 
 ############################################################################
 # @section Lifecycle
@@ -35,13 +19,8 @@ PLUGIN[_NAME]="${${PLUGIN[_PATH]:t}%%.*}"
 #
 gh_plugin_init() {
     builtin emulate -L zsh
-    builtin setopt extended_glob warn_create_global typeset_silent no_short_loops rc_quotes no_auto_pushd
 
-    @completion_generate_local_file "${PLUGIN[_NAME]}" "${PLUGIN[_PATH]}" gh completion --shell zsh
+    @completion_generate_local_file gh "$(@zplugins_plugin_dir gh)" gh completion --shell zsh
 }
 
-gh_plugin_unload() {
-    builtin emulate -L zsh
-
-    unset PLUGIN
-}
+@zplugins_declare_plugin_dependencies completion
