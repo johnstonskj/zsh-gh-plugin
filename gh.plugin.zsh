@@ -19,6 +19,8 @@ GH_PLUGIN_PATH="$(@zplugins_normalize_zero "$0")"
 # @description Plugin lifecycle functions.
 #
 
+@zplugins_declare_plugin_dependencies completion
+
 #
 # @description Generate a completion function for the command 'gh'.
 #
@@ -27,7 +29,18 @@ GH_PLUGIN_PATH="$(@zplugins_normalize_zero "$0")"
 gh_plugin_init() {
     builtin emulate -L zsh
 
-    @completion_generate_local_file gh "${GH_PLUGIN_PATH}" gh completion --shell zsh
+    @completion_generate_local_file_from gh completion --shell zsh
 }
 
-@zplugins_declare_plugin_dependencies completion
+#
+# @description
+#
+# Called when the plugin is unloaded to clean up after itself.
+#
+# @noargs
+#
+gh_plugin_unload() {
+    builtin emulate -L zsh
+
+    unset GH_PLUGIN_PATH
+}
